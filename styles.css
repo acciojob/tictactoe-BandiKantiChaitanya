@@ -1,1 +1,60 @@
 /*  your css code here. If applicable */
+label{
+	display:block
+}
+button{
+	display:block;
+	align-items:center;
+	justify-content:center;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Style the game container to use CSS Grid for the 3x3 layout */
+.game {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);  /* 3 columns, each 100px wide */
+    grid-gap: 10px;  /* 10px gap between cells */
+    justify-content: center;  /* Center the grid in the container */
+    margin-top: 20px;
+}
+
+/* Style each button (the grid cells) */
+.box {
+    width: 100px;
+    height: 100px;
+    font-size: 36px;  /* Larger font for X and O */
+    font-weight: bold;
+    background-color: #f4f4f4;
+    border: 2px solid #333;  /* Border for each box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s ease;
+    border-radius: 8px;
+}
+
+/* Style for when you hover over a box */
+.box:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+}
+
+/* Style for the message (whose turn is it) */
+.message {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Make the victory message stand out */
+.message-win {
+    color: green;  /* Victory message in green */
+    font-size: 22px;
+    font-weight: bold;
+}
