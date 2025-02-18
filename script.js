@@ -1,16 +1,20 @@
 let form = document.getElementById('game-form');
 let container = document.querySelector('.container');
-let currentPlayerIndex = 0;  // Player 1 starts
-let board = ['', '', '', '', '', '', '', '', ''];  // Track moves (empty cells)
-let isGameOver = false;
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();  
-    let player1 = document.getElementById('player1').value;
-    let player2 = document.getElementById('player2').value;
 
+    // Get player names and trim any leading/trailing spaces
+    let player1 = document.getElementById('player1').value.trim();
+    let player2 = document.getElementById('player2').value.trim();
+
+    // Initialize game variables
     let players = [player1, player2];
+    let currentPlayerIndex = 0;  // Player 1 starts
+    let board = ['', '', '', '', '', '', '', '', ''];  // Track moves (empty cells)
+    let isGameOver = false;
 
+    // Render the game board
     container.innerHTML = `
         <h1>Tic Tac Toe</h1>
         <div class="message">${players[currentPlayerIndex]}, you're up!</div>
@@ -31,41 +35,45 @@ form.addEventListener('submit', function(event) {
     let boxes = document.querySelectorAll('.box');
     boxes.forEach((box) => {
         box.addEventListener('click', function() {
-            let index = box.getAttribute('id') - 1;  // Get the index based on button ID
-            if (board[index] === '' && !isGameOver) {  // Check if the cell is empty
-                board[index] = currentPlayerIndex === 0 ? 'X' : 'O';  // Assign X or O
-                box.innerText = board[index];  // Update the button with X or O
+            let index = box.getAttribute('id') - 1;
+            
+            // Check if cell is empty and the game is not over
+            if (board[index] === '' && !isGameOver) {
+                board[index] = currentPlayerIndex === 0 ? 'X' : 'O'; // Update board with current player's symbol
+                box.innerText = board[index];  // Display the symbol on the button
 
-                // Check if the current player has won
+                // Check if current player has won
                 if (checkWin(board)) {
-                    document.querySelector('.message').innerText = `${players[currentPlayerIndex]} Congratulations, you won!`;
                     isGameOver = true;
-                } else if (board.every(cell => cell !== '')) {
-                    // Check for draw if the board is full
-                    document.querySelector('.message').innerText = "It's a draw!";
-                    isGameOver = true;
+                    // Delay the victory message by 1 second
+                    setTimeout(function() {
+                        document.querySelector('.message').innerText = `${players[currentPlayerIndex]} Congratulations, you won!`;
+                    }, 1000);  // 1-second delay
                 } else {
-                    currentPlayerIndex = 1 - currentPlayerIndex;  // Switch players
+                    // Switch to the other player
+                    currentPlayerIndex = 1 - currentPlayerIndex;
                     document.querySelector('.message').innerText = `${players[currentPlayerIndex]}, you're up!`;
                 }
             }
         });
     });
-});
 
-// Function to check for a winning combination
-function checkWin(board) {
-    const winPatterns = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-        [0, 4, 8], [2, 4, 6]               // Diagonals
-    ];
+    // Function to check if there is a winning combination
+    function checkWin(board) {
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+            [0, 4, 8], [2, 4, 6]               // Diagonals
+        ];
 
-    for (let pattern of winPatterns) {
-        const [a, b, c] = pattern;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            return true;  // Found a winner
+        // Check each winning pattern
+        for (let pattern of winPatterns) {
+            const [a, b, c] = pattern;
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                console.log('Win condition met for:', board[a]);  // Debug log
+                return true;  // Found a winner
+            }
         }
+        return false;  // No winner yet
     }
-    return false;  // No winner yet
-}
+});
