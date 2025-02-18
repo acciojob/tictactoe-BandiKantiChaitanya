@@ -15,15 +15,15 @@ form.addEventListener('submit', function(event) {
         <h1>Tic Tac Toe</h1>
         <div class="message">${players[currentPlayerIndex]}, you're up!</div>
         <div class="game">
-            <button class="box" data-index="0"></button>
-            <button class="box" data-index="1"></button>
-            <button class="box" data-index="2"></button>
-            <button class="box" data-index="3"></button>
-            <button class="box" data-index="4"></button>
-            <button class="box" data-index="5"></button>
-            <button class="box" data-index="6"></button>
-            <button class="box" data-index="7"></button>
-            <button class="box" data-index="8"></button>
+            <button class="box" id="1"></button>
+        <button class="box" id="2"></button>
+        <button class="box" id="3"></button>
+        <button class="box" id="4"></button>
+        <button class="box" id="5"></button>
+        <button class="box" id="6"></button>
+        <button class="box" id="7"></button>
+        <button class="box" id="8"></button>
+        <button class="box" id="9"></button>
         </div>
     `;
 
@@ -31,7 +31,7 @@ form.addEventListener('submit', function(event) {
     let boxes = document.querySelectorAll('.box');
     boxes.forEach((box) => {
         box.addEventListener('click', function() {
-            let index = box.getAttribute('data-index');
+            let index = box.getAttribute('id')-1;
             if (board[index] === '' && !isGameOver) {  // Check if cell is empty
                 board[index] = currentPlayerIndex === 0 ? 'X' : 'O'; // Update board with current player's symbol
                 box.innerText = board[index];  // Display the symbol on the button
