@@ -40,6 +40,10 @@ form.addEventListener('submit', function(event) {
                 if (checkWin(board)) {
                     document.querySelector('.message').innerText = `${players[currentPlayerIndex]} Congratulations, you won!`;
                     isGameOver = true;
+                } else if (board.every(cell => cell !== '')) {
+                    // Check for draw if the board is full
+                    document.querySelector('.message').innerText = "It's a draw!";
+                    isGameOver = true;
                 } else {
                     currentPlayerIndex = 1 - currentPlayerIndex;  // Switch players
                     document.querySelector('.message').innerText = `${players[currentPlayerIndex]}, you're up!`;
