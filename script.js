@@ -3,8 +3,8 @@ let container = document.querySelector('.container');
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();  
-    let player1 = document.getElementById('player-1').value;
-    let player2 = document.getElementById('player-2').value;
+    let player1 = document.getElementById('player1').value;
+    let player2 = document.getElementById('player2').value;
 
     let players = [player1, player2];
     let currentPlayerIndex = 0;  // Player 1 starts
